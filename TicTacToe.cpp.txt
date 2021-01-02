@@ -1,0 +1,326 @@
+#include <iostream>
+using namespace std;
+//#include<string.h>
+//#include <cctype>
+//#include <cstring>
+#include <ctime>
+
+bool isFull(char grid[3][3])
+{
+    for(int i = 0; i < 3; i++)
+    {
+        for(int j = 0; j < 3; j++)
+        {
+            if(grid[i][j] == '*')
+            {
+                return false;
+            }
+        }
+    }
+    return true;
+}
+
+void printGrid(char grid[3][3])
+{
+    for(int i = 0; i < 3; i++)
+    {
+        for(int j = 0; j < 3; j++)
+        {
+            printf("%c ",grid[i][j]);
+        }
+        cout << "\n";
+    }
+}
+
+int main()
+{
+    char XorO;
+    char CPU;
+    char input;
+    int row;
+    int column;
+    int randomRow;
+    int randomColumn;
+    srand((int)time(0));
+    char grid[3][3];
+    cout << "\n";
+    cout << "Let's Play Tic Tac Toe!\n";
+    cout << "Would you like to be X or O? ";
+    cin >> input;
+    if(input == 'X' || input == 'x')
+    {
+        XorO = 'X';
+    }
+    else if(input == 'O' || input == 'o')
+    {
+        XorO = 'O';
+    }
+    else
+    {
+        cout << "Please input X or O.\n";
+    }
+    if(XorO == 'X')
+    {
+        CPU = 'O';
+    }
+    else if(XorO == 'O')
+    {
+        CPU = 'X';
+    }
+    for(int i = 0; i < 3; i++)
+    {
+        for(int j = 0; j < 3; j++)
+        {
+            grid[i][j] = '*';
+        }
+    }
+    while(isFull(grid) == 0)
+    {
+        printf("Which row would you like to place your %c? ",XorO);
+        cin >> row;
+        if(row < 1 || row > 3)
+        {
+            "Please input 1, 2, or 3.";
+            break;
+        }
+        printf("Which column would you like to place your %c? ",XorO);
+        cin >> column;
+        if(column < 1 || column > 3)
+        {
+            "Please input 1, 2, or 3.";
+            break;
+        }
+        if(grid[row - 1][column - 1] != '*')
+        {
+            cout << "This spot is already full. Try again.\n";
+        }
+        else 
+        {
+            grid[row - 1][column - 1] = XorO;
+            if(isFull(grid))
+            {
+                break;
+            }
+            randomRow = (rand() % 3);
+            randomColumn = (rand() % 3);
+            while(grid[randomRow][randomColumn] != '*')
+            {
+                randomRow = (rand() % 3);
+                randomColumn = (rand() % 3);
+            }
+            grid[randomRow][randomColumn] = CPU;
+            printGrid(grid);
+        }
+        if(grid[0][0] == grid[0][1] && grid[0][1] == grid[0][2] && grid[0][0] != '*')
+        {
+            if(grid[0][0] == XorO)
+            {
+                cout << "You win!\n";
+                break;
+            }
+            else if(grid[0][0] == CPU)
+            {
+                cout << "You lose!\n";
+                break;
+            }
+        }
+        if(grid[1][0] == grid[1][1] && grid[1][1] == grid[1][2] && grid[1][0] != '*')
+        {
+            if(grid[1][0] == XorO)
+            {
+                cout << "You win!\n";
+                break;
+            }
+            else if(grid[1][0] == CPU)
+            {
+                cout << "You lose!\n";
+                break;
+            }
+        }
+        if(grid[2][0] == grid[2][1] && grid[2][1] == grid[2][2] && grid[2][0] != '*')
+        {
+            if(grid[2][0] == XorO)
+            {
+                cout << "You win!\n";
+                break;
+            }
+            else if(grid[2][0] == CPU)
+            {
+                cout << "You lose!\n";
+                break;
+            }
+        }
+        
+        if(grid[0][0] == grid[1][0] && grid[1][0] == grid[2][0] && grid[0][0] != '*')
+        {
+            if(grid[0][0] == XorO)
+            {
+                cout << "You win!\n";
+                break;
+            }
+            else if(grid[0][0] == CPU)
+            {
+                cout << "You lose!\n";
+                break;
+            }
+        }
+
+        if(grid[0][1] == grid[1][1] == grid[1][1] && grid[2][1] && grid[0][1] != '*')
+        {
+            if(grid[0][1] == XorO)
+            {
+                cout << "You win!\n";
+                break;
+            }
+            else if(grid[0][1] == CPU)
+            {
+                cout << "You lose!\n";
+                break;
+            }
+        }
+        
+        if(grid[0][2] == grid[1][2] && grid[1][2] == grid[2][2] && grid[0][2] != '*')
+        {
+            if(grid[0][2] == XorO)
+            {
+                cout << "You win!\n";
+                break;
+            }
+            else if(grid[0][2] == CPU)
+            {
+                cout << "You lose!\n";
+                break;
+            }
+        }
+        if(grid[0][0] == grid[1][1] && grid[1][1] == grid[2][2] && grid[0][0] != '*')
+        {
+            if(grid[0][0] == XorO)
+            {
+                cout << "You win!\n";
+                break;
+            }
+            else if(grid[0][0] == CPU)
+            {
+                cout << "You lose!\n";
+                break;
+            }
+        }
+        if(grid[0][2] == grid[1][1] && grid[1][1] == grid[2][0] && grid[0][2] != '*')
+        {
+            if(grid[0][2] == XorO)
+            {
+                cout << "You win!\n";
+                break;
+            }
+            else if(grid[0][2] == CPU)
+            {
+                cout << "You lose!\n";
+                break;
+            }
+        }
+    }
+    printGrid(grid);
+    if(isFull(grid))
+    {
+        if(grid[0][0] == grid[0][1] && grid[0][1] == grid[0][2] && grid[0][0] != '*')
+        {
+            if(grid[0][0] == XorO)
+            {
+                cout << "You win!\n";
+            }
+            else if(grid[0][0] == CPU)
+            {
+                cout << "You lose!\n";
+            }
+        }
+        else if(grid[1][0] == grid[1][1] && grid[1][1] == grid[1][2] && grid[1][0] != '*')
+        {
+            if(grid[1][0] == XorO)
+            {
+                cout << "You win!\n";
+            }
+            else if(grid[1][0] == CPU)
+            {
+                cout << "You lose!\n";
+            }
+        }
+        else if(grid[2][0] == grid[2][1] && grid[2][1] == grid[2][2] && grid[2][0] != '*')
+        {
+            if(grid[2][0] == XorO)
+            {
+                cout << "You win!\n";
+            }
+            else if(grid[2][0] == CPU)
+            {
+                cout << "You lose!\n";
+            }
+        }
+        
+        else if(grid[0][0] == grid[1][0] && grid[1][0] == grid[2][0] && grid[0][0] != '*')
+        {
+            if(grid[0][0] == XorO)
+            {
+                cout << "You win!\n";
+            }
+            else if(grid[0][0] == CPU)
+            {
+                cout << "You lose!\n";
+            }
+        }
+
+        else if(grid[0][1] == grid[1][1] == grid[1][1] && grid[2][1] && grid[0][1] != '*')
+        {
+            if(grid[0][1] == XorO)
+            {
+                cout << "You win!\n";
+            }
+            else if(grid[0][1] == CPU)
+            {
+                cout << "You lose!\n";
+            }
+        }
+        
+        else if(grid[0][2] == grid[1][2] && grid[1][2] == grid[2][2] && grid[0][2] != '*')
+        {
+            if(grid[0][2] == XorO)
+            {
+                cout << "You win!\n";
+            }
+            else if(grid[0][2] == CPU)
+            {
+                cout << "You lose!\n";
+            }
+        }
+
+        else if(grid[0][0] == grid[1][1] && grid[1][1] == grid[2][2] && grid[0][0] != '*')
+        {
+            if(grid[0][0] == XorO)
+            {
+                cout << "You win!\n";
+            }
+            else if(grid[0][0] == CPU)
+            {
+                cout << "You lose!\n";
+            }
+        }
+
+        else if(grid[0][2] == grid[1][1] && grid[1][1] == grid[2][0] && grid[0][2] != '*')
+        {
+            if(grid[0][2] == XorO)
+            {
+                cout << "You win!\n";
+            }
+            else if(grid[0][2] == CPU)
+            {
+                cout << "You lose!\n";
+            }
+        }
+
+        else
+        {
+            cout << "It's a tie!\n";
+        }
+    }
+    
+    return 0;
+}
