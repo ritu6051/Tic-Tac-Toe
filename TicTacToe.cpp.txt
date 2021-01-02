@@ -1,8 +1,5 @@
 #include <iostream>
 using namespace std;
-//#include<string.h>
-//#include <cctype>
-//#include <cstring>
 #include <ctime>
 
 bool isFull(char grid[3][3])
